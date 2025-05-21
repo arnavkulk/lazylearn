@@ -9,6 +9,8 @@ dependencies = [
     "pillow>=11.2.1",
     "pyautogui>=0.9.54",
     "pynput>=1.8.1",
+    "pyobjc-framework-quartz>=11.0",
+    "pyperclip>=1.9.0",
+    "pyperclipimg>=0.2.0",
     "python-dotenv>=1.1.0",
-    "rumps>=0.4.0",
 ]
