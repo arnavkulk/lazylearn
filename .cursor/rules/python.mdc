@@ -1,0 +1,12 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Package Management
+- Use the uv package manager
+- Do not track a requirements.txt file, instead use the builtin uv files
+- Use "uv add" to add packages
+- Use "uv remove" to remove unneeded packages when refactoring code
+    - Only use this if the package is no longer used globally
+    - 
