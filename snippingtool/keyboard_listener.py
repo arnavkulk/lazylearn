@@ -3,7 +3,7 @@ import threading
 import queue
 import time
 from screenshot import ScreenshotTool
-from query import send_openai_request
+from image_utils import open_chatgpt_and_drop_image
 
 class GlobalHotkeyListener:
     def __init__(self):
@@ -51,7 +51,6 @@ class GlobalHotkeyListener:
                 elif key == keyboard.Key.shift:
                     self.shift_pressed = False
                     self.is_screenshot_tool_running = False
-
                     print("Shift released")
                 elif hasattr(key, 'char') and key.char == 'g':
                     self.g_pressed = False
@@ -65,7 +64,15 @@ class GlobalHotkeyListener:
             listener.join()
     
     def handle_screenshot(self, img):
-        send_openai_request(img)
+        """
+        Handle the screenshot by opening ChatGPT and pasting the image.
+        
+        Args:
+            img (PIL.Image): The screenshot image to process
+        """
+        success = open_chatgpt_and_drop_image(img)
+        if not success:
+            print("Failed to process screenshot with ChatGPT")
 
     def run(self):
         try:
