@@ -8,5 +8,6 @@ alwaysApply: true
 - Do not track a requirements.txt file, instead use the builtin uv files
 - Use "uv add" to add packages
 - Use "uv remove" to remove unneeded packages when refactoring code
+- Use "uv run" instead of "python" to run files
     - Only use this if the package is no longer used globally
     - 
