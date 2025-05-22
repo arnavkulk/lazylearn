@@ -3,10 +3,10 @@ import threading
 import queue
 import time
 from screenshot import ScreenshotTool
-from image_utils import open_chatgpt_and_drop_image
+from image_to_llm import open_chatgpt_and_drop_image
 
 class GlobalHotkeyListener:
-    def __init__(self):
+    def __init__(self, on_screenshot_complete):
         # Initialize hotkey state
         self.cmd_pressed = False
         self.shift_pressed = False
@@ -19,8 +19,8 @@ class GlobalHotkeyListener:
         self.keyboard_thread = threading.Thread(target=self.start_keyboard_listener, daemon=True)
         self.keyboard_thread.start()
         self.is_screenshot_tool_running = False
+        self.on_screenshot_complete = on_screenshot_complete
         # Start the main application loop
-        self.run()
 
     def start_keyboard_listener(self):
         def on_press(key):
@@ -82,7 +82,7 @@ class GlobalHotkeyListener:
                     event = self.event_queue.get_nowait()
                     if event == 'start_screenshot':
                         print("Starting screenshot tool...")
-                        sst = ScreenshotTool(self.handle_screenshot)
+                        sst = ScreenshotTool(self.on_screenshot_complete)
                         sst.start()
                 except queue.Empty:
                     pass
